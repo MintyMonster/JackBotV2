@@ -36,7 +36,7 @@ namespace JackBotV2
         public async Task MainAsync()
         {
 
-            var token = "ODAwNDg3MzA2NTg1ODMzNTcz.YAS15g.qlWw4A5fL7EZGAjdf7QuXargAKM";
+            var token = // Hidden token because screw you
 
             using (var services = ConfigureServices())
             {
