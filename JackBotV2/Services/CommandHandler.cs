@@ -7,6 +7,7 @@ using Discord.Commands;
 using Discord.WebSocket;
 using Microsoft.Extensions.Configuration;
 using System.Text;
+using System.IO;
 
 namespace JackBotV2.Services
 {
@@ -15,6 +16,7 @@ namespace JackBotV2.Services
         private readonly CommandService _commands; // Set services
         private readonly DiscordSocketClient _client;
         private readonly IServiceProvider _services;
+        private static string path = @"D:\JackbotLogs\JackBotLog.txt";
 
         public CommandHandler(IServiceProvider services)
         {
@@ -64,12 +66,24 @@ namespace JackBotV2.Services
             if (!command.IsSpecified) // make sure the user specified the command
             {
                 System.Console.WriteLine($"{DateTime.Now} => Command failed to execute for {context.User.Username}");
+
+                using (StreamWriter sw = new StreamWriter(path, true))
+                {
+                    sw.WriteLine($"{DateTime.Now} => Command failed to execute for {context.User.Username}");
+                }
+
                 return;
             }
 
             if (result.IsSuccess) // Make sure that the command was a success
             {
                 System.Console.WriteLine($"{DateTime.Now} => {context.User.Username} has executed a command.");
+
+                using (StreamWriter sw = new StreamWriter(path, true))
+                {
+                    sw.WriteLine($"{DateTime.Now} => {context.User.Username} has executed a command.");
+                }
+
                 return;
             }
 

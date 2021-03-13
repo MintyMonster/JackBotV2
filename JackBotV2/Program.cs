@@ -16,20 +16,26 @@ using JackBotV2.Services;
 using JackBotV2.Modules;
 using Microsoft.EntityFrameworkCore;
 using System.IO;
+using Tweetinvi;
+using Tweetinvi.Parameters;
+using Tweetinvi.Exceptions;
+using Tweetinvi.Streaming;
 
 namespace JackBotV2
 { 
 
     class Program
     {
+
         public static char prefix = '!'; // Prefix needed for command
         private DiscordSocketClient _client; // Set client
-        private static string path = @"C:\Users\camer\source\repos\JackBotV2\JackBotV2\JackBotLog.txt"; // Set data path for log file
+        private static string path = @"D:\JackbotLogs\JackBotLog.txt"; // Set data path for log file
         public static void Main(string[] args)
             => new Program().MainAsync().GetAwaiter().GetResult(); // Start bot
 
         public async Task MainAsync()
         {
+
             var token = "ODAwNDg3MzA2NTg1ODMzNTcz.YAS15g.qlWw4A5fL7EZGAjdf7QuXargAKM";
 
             using (var services = ConfigureServices())
@@ -45,12 +51,11 @@ namespace JackBotV2
                 await client.LoginAsync(TokenType.Bot, token); // login to API
                 await client.StartAsync(); // Start bot
 
-                await client.SetGameAsync("try !help"); // Status message for bot
+                await client.SetGameAsync("the Guitar"); // Status message for bot
 
                 await services.GetRequiredService<CommandHandler>().InitialiseAsync(); // initialise command handler
 
                 await Task.Delay(-1);
-                
             }
         }
 
@@ -85,6 +90,8 @@ namespace JackBotV2
                 sw.WriteLine($"{DateTime.Now} => JackBot **ONLINE**"); // Write to file
             }
             return Task.CompletedTask; // Return task as completed
+
+
         }
     }
 }
